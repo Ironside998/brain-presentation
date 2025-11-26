@@ -1,0 +1,784 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #020617;
+  color: #ffffff; /* default text white */
+}
+
+/* Root layout */
+.app-root {
+  position: relative;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Animated neuron background */
+.neuron-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 10% 20%, #1f2937 0, #020617 55%);
+}
+
+.neuron-node {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(96, 165, 250, 0.9);
+  box-shadow: 0 0 20px rgba(96, 165, 250, 0.9);
+  animation: twinkle 3.5s ease-in-out infinite alternate;
+}
+
+.neuron-node::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform-origin: left center;
+  transform: rotate(20deg);
+  opacity: 0.4;
+  background: linear-gradient(to right, rgba(96, 165, 250, 0.6), transparent);
+}
+
+.neuron-node.n1 {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.neuron-node.n2 {
+  top: 35%;
+  right: 10%;
+  animation-delay: 0.8s;
+}
+
+.neuron-node.n3 {
+  bottom: 25%;
+  left: 25%;
+  animation-delay: 1.4s;
+}
+
+.neuron-node.n4 {
+  bottom: 15%;
+  right: 20%;
+  animation-delay: 2s;
+}
+
+.neuron-node.n5 {
+  top: 55%;
+  left: 50%;
+  animation-delay: 2.6s;
+}
+
+@keyframes twinkle {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+}
+
+/* Dark overlay for readability */
+.overlay-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.4), transparent),
+    radial-gradient(circle at bottom, rgba(15, 23, 42, 0.7), #020617);
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 18px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+}
+
+.top-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff; /* white */
+}
+
+.top-meta {
+  font-size: 0.85rem;
+  color: #ffffff; /* white as requested */
+}
+
+/* Slide area */
+.slide-container {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.slide-card {
+  width: min(960px, 100%);
+  height: 100%;                 /* NEW: fill the available slide space */
+  position: relative;           /* NEW: for the slide number badge */
+  margin: 0 auto;
+  padding: 28px 28px 24px;
+  border-radius: 32px;
+  background: radial-gradient(circle at top left, #1f2937, #020617);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Theme accent borders */
+/* Theme accent borders + mood lighting (box-shadow) */
+.theme-intro {
+  border-color: rgba(129, 140, 248, 0.8);
+  box-shadow: 0 24px 80px rgba(129, 140, 248, 0.25);
+}
+
+.theme-brain,
+.theme-neuron,
+.theme-brain-network {
+  border-color: rgba(52, 211, 153, 0.85);
+  box-shadow: 0 24px 80px rgba(52, 211, 153, 0.25);
+}
+
+.theme-ann,
+.theme-mirror,
+.theme-types {
+  border-color: rgba(96, 165, 250, 0.9);
+  box-shadow: 0 24px 80px rgba(96, 165, 250, 0.28);
+}
+
+.theme-abilities,
+.theme-real-life {
+  border-color: rgba(251, 191, 36, 0.9);
+  box-shadow: 0 24px 80px rgba(251, 191, 36, 0.26);
+}
+
+.theme-limits-brain,
+.theme-future {
+  border-color: rgba(248, 113, 113, 0.9);
+  box-shadow: 0 24px 80px rgba(248, 113, 113, 0.3);
+}
+
+/* Slide content */
+.slide-header {
+  margin-bottom: 16px;
+}
+
+.slide-title {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+  line-height: 1.1;
+  color: #ffffff; /* white */
+}
+
+.slide-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #ffffff; /* white */
+}
+
+.slide-points {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Bullet lines = light gray */
+.slide-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: #d1d5db; /* light gray */
+}
+
+.bullet-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  margin-top: 6px;
+  background: radial-gradient(circle, #e5e7eb, #9ca3af);
+}
+
+/* Visual / image area */
+.slide-visual {
+  position: relative;
+  border-radius: 24px;
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  background: radial-gradient(circle at top, rgba(37, 99, 235, 0.2), transparent),
+    rgba(15, 23, 42, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;          /* new */
+  overflow: hidden;
+}
+
+
+.slide-visual img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.visual-placeholder {
+  font-size: 0.85rem;
+  color: #d1d5db;
+  text-align: center;
+  padding: 10px 14px;
+}
+
+/* Glow + neurons on the image */
+.brain-image {
+  max-width: 100%;
+  display: block;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.7));
+  animation: brainGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes brainGlow {
+  0% {
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.9));
+  }
+  100% {
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+  }
+}
+
+/* Tiny neuron dots overlaying the brain */
+/* Star-like glowing neuron */
+.neuron-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #ffffff 40%, rgba(147, 197, 253, 0.5));
+  border-radius: 50%;
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 32px rgba(147, 197, 253, 0.8),
+    0 0 48px rgba(147, 197, 253, 0.6);
+
+  animation: neuronBlink 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Starburst effect */
+.neuron-dot::before,
+.neuron-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+}
+
+/* Vertical beam */
+.neuron-dot::before {
+  width: 2px;
+  height: 18px;
+  box-shadow:
+    0 0 16px rgba(147, 197, 253, 0.9),
+    0 0 30px rgba(147, 197, 253, 0.7);
+}
+
+/* Horizontal beam */
+.neuron-dot::after {
+  width: 18px;
+  height: 2px;
+  box-shadow:
+    0 0 16px rgba(147, 197, 253, 0.9),
+    0 0 30px rgba(147, 197, 253, 0.7);
+}
+
+
+.neuron-dot.nd1 {
+  top: 32%;
+  left: 22%;
+  animation-delay: 0s;
+}
+.neuron-dot.nd2 {
+  top: 46%;
+  left: 28%;
+  animation-delay: 0.6s;
+}
+.neuron-dot.nd3 {
+  top: 61%;
+  left: 34%;
+  animation-delay: 1.2s;
+}
+.neuron-dot.nd4 {
+  top: 55%;
+  left: 26%;
+  animation-delay: 1.8s;
+}
+@keyframes neuronBlink {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.25;
+  }
+  45% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+}
+.bg-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.5);
+  opacity: 0.4;
+  animation: floatParticle 18s linear infinite;
+}
+
+/* You can tweak these positions if you want */
+.bg-particle.p1 { top: 10%; left: 8%; animation-delay: -2s; }
+.bg-particle.p2 { top: 22%; left: 40%; animation-delay: -5s; }
+.bg-particle.p3 { top: 35%; left: 75%; animation-delay: -8s; }
+.bg-particle.p4 { top: 60%; left: 18%; animation-delay: -11s; }
+.bg-particle.p5 { top: 70%; left: 50%; animation-delay: -14s; }
+.bg-particle.p6 { top: 82%; left: 80%; animation-delay: -17s; }
+.bg-particle.p7 { top: 15%; left: 60%; animation-delay: -3s; }
+.bg-particle.p8 { top: 45%; left: 20%; animation-delay: -6s; }
+.bg-particle.p9 { top: 55%; left: 90%; animation-delay: -9s; }
+.bg-particle.p10 { top: 78%; left: 30%; animation-delay: -12s; }
+.bg-particle.p11 { top: 32%; left: 55%; animation-delay: -15s; }
+.bg-particle.p12 { top: 50%; left: 5%; animation-delay: -18s; }
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(10px);
+    opacity: 0.1;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 0.1;
+  }
+}
+
+
+
+/* Footer nav */
+.nav-footer {
+  margin-top: 16px;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(31, 41, 55, 0.9);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(to right, #60a5fa, #a78bfa, #f97316);
+  transition: width 0.3s ease;
+  animation: progressPulse 0.6s ease-out;
+}
+
+@keyframes progressPulse {
+  0% {
+    transform: scaleY(1.6);
+    box-shadow: 0 0 0 rgba(96, 165, 250, 0.0);
+  }
+  50% {
+    transform: scaleY(1);
+    box-shadow: 0 0 16px rgba(96, 165, 250, 0.8);
+  }
+  100% {
+    transform: scaleY(1);
+    box-shadow: 0 0 0 rgba(96, 165, 250, 0.0);
+  }
+}
+
+
+.nav-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.nav-btn {
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(96, 165, 250, 1);
+  background: radial-gradient(circle at top left, #1d4ed8, #1e293b);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-btn.secondary {
+  border-color: rgba(148, 163, 184, 0.8);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.nav-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.8);
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  box-shadow: none;
+}
+
+.hint-text {
+  font-size: 0.8rem;
+  color: #ffffff; /* keep white per your scheme */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .slide-card {
+    grid-template-columns: 1fr;
+    padding: 22px 18px 18px;
+  }
+
+  .slide-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-bar {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .slide-card {
+    border-radius: 24px;
+  }
+}
+/* Clickable neuron visual on slide 3 */
+.neuron-diagram {
+  position: relative;
+  width: 90%;
+  max-width: 260px;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.neuron-soma {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #ffffff 30%, #22c55e 60%, #14532d 100%);
+  box-shadow:
+    0 0 18px rgba(34, 197, 94, 0.8),
+    0 0 28px rgba(34, 197, 94, 0.6);
+}
+
+.neuron-dendrites {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  border: 2px solid rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 18px rgba(34, 197, 94, 0.4);
+}
+
+.neuron-dendrites::before,
+.neuron-dendrites::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 2px;
+  background: rgba(34, 197, 94, 0.7);
+  border-radius: 999px;
+  left: -40px;
+  top: 20px;
+  box-shadow:
+    -20px -10px 0 0 rgba(34, 197, 94, 0.6),
+    -18px 16px 0 0 rgba(34, 197, 94, 0.5);
+}
+
+.neuron-dendrites::after {
+  top: 45px;
+  box-shadow:
+    -22px 6px 0 0 rgba(34, 197, 94, 0.6),
+    -18px -14px 0 0 rgba(34, 197, 94, 0.5);
+}
+
+.neuron-axon {
+  position: absolute;
+  width: 120px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #22c55e, #bbf7d0);
+  left: calc(50% + 40px);
+}
+
+.neuron-axon::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: -4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid #bbf7d0;
+}
+
+.axon-pulse {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #ffffff 40%, #bbf7d0 70%);
+  opacity: 0;
+}
+
+.neuron-diagram.firing .axon-pulse {
+  animation: axonFire 0.6s ease-out;
+}
+
+@keyframes axonFire {
+  0% {
+    left: 0;
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+.ann-hint {
+  position: static;          /* no absolute – just normal flow */
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #d1d5db;
+  margin-top: 4px;           /* small gap below the diagram */
+}
+
+
+/* ANN pathway visual on slide 6 */
+/* ANN pathway visual on slide 6 */
+.ann-pathway {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  justify-items: center;
+  row-gap: 14px;
+}
+
+/* Each column: stack nodes + label vertically */
+.ann-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.ann-layer.ann-input {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.ann-layer.ann-hidden {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.ann-layer.ann-output {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.ann-layer .ann-node {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(96, 165, 250, 0.9);
+  background: radial-gradient(circle, #0b1120, #1e293b);
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+}
+
+.ann-label {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #d1d5db;
+}
+
+.ann-layer.ann-hidden .ann-node {
+  border-color: rgba(129, 140, 248, 0.9);
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.6);
+}
+
+.ann-layer.ann-output .ann-node {
+  border-color: rgba(52, 211, 153, 0.9);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+}
+
+/* Glowing links overlay the first row */
+.ann-links {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Horizontal pulses between columns */
+.ann-link {
+  position: absolute;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    rgba(96, 165, 250, 0),
+    rgba(96, 165, 250, 0.9)
+  );
+  transform-origin: left center;
+  opacity: 0.5;
+}
+
+/* eyeballed positions between input & hidden / hidden & output */
+.ann-link.pulse-1 {
+  top: 32%;
+  left: 18%;
+  width: 64%;
+}
+
+.ann-link.pulse-2 {
+  top: 50%;
+  left: 18%;
+  width: 64%;
+}
+
+.ann-link.pulse-3 {
+  top: 68%;
+  left: 18%;
+  width: 64%;
+}
+
+.ann-link.pulse-1,
+.ann-link.pulse-2,
+.ann-link.pulse-3 {
+  animation: annFlow 1.8s infinite ease-in-out;
+}
+
+.ann-link.pulse-2 {
+  animation-delay: 0.3s;
+}
+
+.ann-link.pulse-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes annFlow {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(96, 165, 250, 0);
+  }
+  40% {
+    opacity: 1;
+    box-shadow: 0 0 14px rgba(96, 165, 250, 0.9);
+  }
+  100% {
+    opacity: 0.1;
+    box-shadow: 0 0 0 rgba(96, 165, 250, 0);
+  }
+}
+
+/* Hint text: second row, full width, nicely centered */
+.ann-hint {
+  grid-column: 1 / 4;
+  grid-row: 2;
+  position: static;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #d1d5db;
+  margin-top: 4px;
+}
+
+.slide-number-badge {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: #e5e7eb;
+  pointer-events: none;
+}
